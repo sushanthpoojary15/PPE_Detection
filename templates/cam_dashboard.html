@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PPE Detection Live</title>
+    <style>
+        body {
+            background: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #58a6ff;
+            margin-bottom: 25px;
+            font-size: 2.5rem;
+        }
+
+        .video-container {
+            display: inline-block;
+            border: 6px solid #58a6ff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(88, 166, 255, 0.4);
+            background: #161b22;
+        }
+
+        .toggle-btn {
+            margin-top: 25px;
+            background-color: #238636;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #2ea043;
+        }
+
+        .dropdown-form {
+            display: none;
+            margin: 25px auto;
+            padding: 20px;
+            width: 400px;
+            background-color: #161b22;
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(88, 166, 255, 0.15);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            margin: 12px 0;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+            background: #0d1117;
+            color: #c9d1d9;
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #58a6ff;
+            box-shadow: 0 0 5px rgba(88, 166, 255, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Live PPE Detection</h1>
+
+    <div class="video-container">
+        <!-- <img src="{{ url_for('video_feed') }}" width="720" height="540"> -->
+        <img id="videoImage" src="{{ url_for('video_feed') }}" width="720" height="540" crossorigin="anonymous">
+    
+    </div>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <button   class="toggle-btn" onclick="downloadFromImage()">📥 Download Frame</button>
+
+
+    <button class="toggle-btn" onclick="toggleForm()">📤 Send Alert Email</button>
+
+    <div class="dropdown-form" id="emailForm">
+        <form action="{{ url_for('send_custom_email') }}" method="POST" enctype="multipart/form-data">
+            <input type="email" name="email" class="form-input" placeholder="Recipient Email" required>
+            <textarea name="description" class="form-input" placeholder="Description..." rows="4" required></textarea>
+            <input type="file" name="image" class="form-input" accept="image/*" required>
+            <button type="submit" class="toggle-btn">Send Email</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleForm() {
+            const form = document.getElementById('emailForm');
+            form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+        }
+
+        // Ensure the form is hidden by default
+        window.onload = () => {
+            document.getElementById('emailForm').style.display = 'none';
+        };
+
+
+
+
+
+
+
+
+        function downloadFromImage() {
+        const img = document.getElementById("videoImage");
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        try {
+            context.drawImage(img, 0, 0, canvas.width, canvas.height);
+            const imageURL = canvas.toDataURL("image/png");
+            const link = document.createElement("a");
+            link.href = imageURL;
+            link.download = "ppe_frame.png";
+            link.click();
+        } catch (e) {
+            alert("Download failed due to CORS restrictions. Try using <video> instead.");
+        }
+    }
+    </script>
+</body>
+</html>
