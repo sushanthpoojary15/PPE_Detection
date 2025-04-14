@@ -26,17 +26,17 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
+    role = db.Column(db.String(50), nullable=False)
 
 with app.app_context():
     db.create_all()
-    # if not User.query.filter_by(username='admin').first():
-    #     new_user = User(username='admin', password='admin123')
-    #     db.session.add(new_user)
-    #     db.session.commit()
-    #     print('User created: admin / admin123')
-    # else:
-    #     print('User already exists.')
-
+    if not User.query.filter_by(username='admin').first():
+        new_user = User(username='admin', password='admin123', role='admin')
+        db.session.add(new_user)
+        db.session.commit()
+        print('User created: admin / admin123')
+    else:
+        print('User already exists.')
 
 @app.route('/')
 def home():
@@ -65,7 +65,23 @@ def login():
 
     return render_template('login.html')
 
+@app.route('/add_user', methods=['GET', 'POST'])
+def add_user():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        role = request.form['role']
 
+        if User.query.filter_by(username=username).first():
+            flash('Username already exists.', 'danger')
+        else:
+            new_user = User(username=username, password=password, role=role)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('User added successfully.', 'success')
+            return redirect(url_for('dashboard'))
+
+    return render_template('add_user.html')
 
 
 

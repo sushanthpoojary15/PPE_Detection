@@ -16,7 +16,7 @@ body {
     text-align: left;
 }
 .text-r {
-    text-align: right
+    text-align: right;
 }
 .text-j {
     text-align: justify;
@@ -24,14 +24,13 @@ body {
 
 /* Text Color */
 .text-whitesmoke {
-    color: whitesmoke
+    color: whitesmoke;
 }
 .text-darkyellow {
-    color: rgba(255, 235, 59, 0.432)
+    color: rgba(255, 235, 59, 0.432);
 }
 
 /* Lines */
-
 .line-b {
     border-bottom: 1px solid #FFEB3B !important;
 }
@@ -62,7 +61,6 @@ body {
 }
 
 /* Margins g(global) - l(left) - r(right) - t(top) - b(bottom) */
-
 .margin-g {
     margin: 15px;
 }
@@ -129,7 +127,6 @@ body {
 }
 
 /* Bootstrap Form Control Extension */
-
 .form-control,
 .border-line {
     background-color: #5f5f5f;
@@ -152,10 +149,11 @@ body {
 .form-control:focus {
     box-shadow: none;
 }
-.form-control::-webkit-input-placeholder { color: #BDBDBD; }
+.form-control::-webkit-input-placeholder {
+    color: #BDBDBD;
+}
 
 /* Container */
-
 .container-content {
     background-color: #3a3a3aa2;
     color: inherit;
@@ -167,15 +165,12 @@ body {
 }
 
 /* Backgrounds */
-
 .main-bg {
-
     background: #424242;
-    background: linear-gradient( #424242, #212121);
+    background: linear-gradient(#424242, #212121);
 }
 
-/* Login & Register Pages*/
-
+/* Login & Register Pages */
 .login-container {
     max-width: 400px;
     z-index: 100;
@@ -196,12 +191,7 @@ body {
     margin-bottom: 0;
 }
 
-
-
-
-
-
-
+/* Flash Messages */
 .flash-messages {
     list-style-type: none;
     padding: 0;

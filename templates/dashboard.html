@@ -1,81 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(to right, #4e54c8, #8f94fb);
-            padding: 50px;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .card {
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: none;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
-        }
-        .card-body {
-            color: white;
-            background: linear-gradient(to top left, #6a11cb, #2575fc);
-            text-align: center;
-            padding: 40px 20px;
-        }
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        .dashboard-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        a.card {
-            text-decoration: none;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Surveillance Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+   body {
+  background: linear-gradient(to right, #1d2671, #c33764);
+  padding: 60px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 50px;
+}
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  border: none;
+  border-radius: 16px;
+  background: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+  padding: 40px 25px;
+  background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+  color: #ffffff;
+  border-radius: 16px;
+}
+
+.card-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #f1f1f1;
+  margin-top: 8px;
+}
+
+a.card {
+  text-decoration: none;
+}
+
+@media (max-width: 576px) {
+  h2 {
+    font-size: 2rem;
+  }
+
+  .card-body {
+    padding: 30px 20px;
+  }
+}
+
+
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2 class="text-white text-center mb-5">Welcome to Your Dashboard</h2>
-        <div class="dashboard-container">
-            <a href="/profile" class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Profile</h5>
-                    <p>View and edit your personal profile.</p>
-                </div>
-            </a>
-            <a href="{{ url_for('cam_dashboard') }}" class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Check for PPE Detection</h5>
-                    <p>Access system-generated reports and stats.</p>
-                </div>
-            </a>
-            <a href="/settings" class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Settings</h5>
-                    <p>Adjust system preferences and configurations.</p>
-                </div>
-            </a>
-            <a href="/support" class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Support</h5>
-                    <p>Need help? Reach out to the support team.</p>
-                </div>
-            </a>
-            <a href="/logout" class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Logout</h5>
-                    <p>Securely exit your dashboard session.</p>
-                </div>
-            </a>
+  <div class="container">
+    <h2>Welcome to Smart Surveillance Dashboard</h2>
+    <div class="dashboard-container">
+      <a href="/profile" class="card">
+        <div class="card-body">
+          <div class="card-title">Your Profile</div>
+          <p class="card-text">Manage your profile details and update credentials.</p>
         </div>
+      </a>
+      <a href="{{ url_for('cam_dashboard') }}" class="card">
+        <div class="card-body">
+          <div class="card-title">PPE Detection</div>
+          <p class="card-text">Start live detection for helmet and vest compliance.</p>
+        </div>
+      </a>
+      <a href="/settings" class="card">
+        <div class="card-body">
+          <div class="card-title">System Settings</div>
+          <p class="card-text">Customize preferences and configuration options.</p>
+        </div>
+      </a>
+      <a href="/support" class="card">
+        <div class="card-body">
+          <div class="card-title">Help & Support</div>
+          <p class="card-text">Contact technical support or view documentation.</p>
+        </div>
+      </a>
+      <a href="/add_user" class="card">
+        <div class="card-body">
+          <div class="card-title">Add User</div>
+          <p class="card-text">Create new user accounts and assign roles.</p>
+        </div>
+      </a>
+      <a href="/logout" class="card">
+        <div class="card-body">
+          <div class="card-title">Logout</div>
+          <p class="card-text">Safely sign out of your session.</p>
+        </div>
+      </a>
     </div>
+  </div>
 </body>
 </html>

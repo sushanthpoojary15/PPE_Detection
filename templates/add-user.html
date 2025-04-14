@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New User</title>
+    <style>
+        /* Reset and layout */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #434343, #000000);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+        }
+
+        /* Form container */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.06);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Headings */
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* Form group */
+        .form-group {
+            margin: 15px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #ccc;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            background-color: #2b2b2b;
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #fdd835;
+        }
+
+        /* Submit button */
+        .form-button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #fdd835;
+            border: none;
+            border-radius: 5px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .form-button:hover {
+            background-color: #ffee58;
+        }
+
+        /* Flash messages */
+        .flash-messages {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .message.success {
+            color: #4caf50;
+        }
+
+        .message.danger {
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Add New User</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for category, message in messages %}
+                        <li class="message {{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('add_user') }}">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select name="role" class="form-control" required>
+                    <option value="">Select Role</option>
+                    <option value="admin">Admin</option>
+                    <option value="moderator">Moderator</option>
+                    <option value="user">User</option>
+                </select>
+            </div>
+
+            <button type="submit" class="form-button">Add User</button>
+        </form>
+    </div>
+
+</body>
+</html>
